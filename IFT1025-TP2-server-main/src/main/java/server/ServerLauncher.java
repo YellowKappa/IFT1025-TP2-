@@ -1,4 +1,5 @@
 package server;
+
 /**
  * Cette classe contient la méthode principale pour lancer le serveur.
  */

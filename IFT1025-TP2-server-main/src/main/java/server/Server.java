@@ -15,11 +15,12 @@ import java.util.stream.Collectors;
  * Cette classe implémente un serveur qui écoute sur un port donné et traite les commandes envoyées par les clients.
  */
 public class Server {
-
     /**
      * Constante représentant la commande INSCRIRE.
      */
+
     public final static String REGISTER_COMMAND = "INSCRIRE";
+
     /**
      * Constante représentant la commande CHARGER.
      */
@@ -29,6 +30,7 @@ public class Server {
     private ObjectInputStream objectInputStream;
     private ObjectOutputStream objectOutputStream;
     private final ArrayList<EventHandler> handlers;
+
     /**
      * Crée un nouveau serveur qui écoute les connexions sur le port spécifié.
      * @param port le numéro de port sur lequel écouter les connexions
@@ -39,6 +41,7 @@ public class Server {
         this.handlers = new ArrayList<EventHandler>();
         this.addEventHandler(this::handleEvents);
     }
+
     /**
      * Ajoute un gestionnaire d'événements à la liste des gestionnaires enregistrés.
      * @param h le gestionnaire d'événements à ajouter
@@ -46,6 +49,7 @@ public class Server {
     public void addEventHandler(EventHandler h) {
         this.handlers.add(h);
     }
+
     /**
      * Alertes tous les gestionnaires d'événements enregistrés avec la commande et les arguments spécifiés.
      * @param cmd la commande à envoyer aux gestionnaires d'événements
@@ -56,6 +60,7 @@ public class Server {
             h.handle(cmd, arg);
         }
     }
+
     /**
      * Exécute le serveur en boucle infinie en acceptant les connexions de clients,
      * puis en écoutant les commandes reçues et en se déconnectant lorsque la communication est terminée.
@@ -75,6 +80,7 @@ public class Server {
             }
         }
     }
+
     /**
      * Écoute les données envoyées par le client et alerte les gestionnaires d'événements
      * enregistrés avec la commande et les arguments spécifiés.
@@ -90,6 +96,7 @@ public class Server {
             this.alertHandlers(cmd, arg);
         }
     }
+
     /**
      * Traite une ligne de commande en la divisant en une commande et des arguments.
      * @param line la ligne de commande à traiter
@@ -101,6 +108,7 @@ public class Server {
         String args = String.join(" ", Arrays.asList(parts).subList(1, parts.length));
         return new Pair<>(cmd, args);
     }
+
     /**
      * Cette méthode ferme les flux de sortie et d'entrée de l'objet Socket client
      * ainsi que la socket client elle-même.
@@ -112,6 +120,7 @@ public class Server {
         objectInputStream.close();
         client.close();
     }
+
     /**
      * Cette méthode gère les événements en fonction de la commande et de l'argument
      * fournis. Si la commande est "INSCRIRE", la méthode appelle la méthode
@@ -159,7 +168,7 @@ public class Server {
             RegistrationForm registrationForm = (RegistrationForm) objectInputStream.readObject();
             Course course = registrationForm.getCourse();
             boolean isRegistered = false;
-
+            
             // Vérifier si l'étudiant est déjà inscrit dans le cours
             BufferedReader reader = new BufferedReader(new FileReader("data/inscription.txt"));
             String line;
@@ -171,13 +180,13 @@ public class Server {
                 }
             }
             reader.close();
-
+            
             // Si l'étudiant est déjà inscrit, retourner un message d'erreur
             if (isRegistered) {
                 objectOutputStream.writeObject("\nErreur : l'étudiant est déjà inscrit dans ce cours.");
                 return;
             }
-
+            
             // Si l'étudiant n'est pas inscrit, ajouter l'inscription au fichier d'inscriptions
             BufferedWriter writer = new BufferedWriter(new FileWriter("data/inscription.txt", true));
             String[] registration = new String[]{

@@ -47,8 +47,9 @@ public class RegisterRequest {
         }
     }
 
-    /*public static void main1(String [] args){
+    public static void main1(String [] args){
         String REGISTER_COMMAND = "INSCRIRE";
+        String LOAD_COMMAND = "CHARGER";
         // Send command to server
         String command = REGISTER_COMMAND;
         Course course = new Course("Programmation1","IFT1015","Automne");
@@ -58,5 +59,5 @@ public class RegisterRequest {
 
 
         new RegisterRequest().runRegisterReqeust("localhost", 1337,command,registrationForm);
-    }*/
+    }
 }

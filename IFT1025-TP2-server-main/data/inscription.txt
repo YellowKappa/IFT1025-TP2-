@@ -1,3 +1,2 @@
 Automne	IFT2255	12345678	Michalis	Famelis	mfamelis@iro.umontreal.ca
-Hiver	IFT1025	20248484	Simon	Thivierge	simon@umontreal.ca
-
+Hiver	IFT2125	12312345	sdsd	sdsd	dsds@umontreal.ca

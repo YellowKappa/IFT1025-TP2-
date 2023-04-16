@@ -21,7 +21,7 @@ public class MainClass {
         Scanner input = new Scanner(System.in);
         boolean quit = false;
         while (!quit) {
-            System.out.println("*** Bienvenue au portail d'inscription de cours de l'UDEM ***");
+            System.out.println("Bienvenue au portail d'inscription de cours de l'WEM ");
             int choice = 0;
             boolean validChoice=false;
             while (!validChoice){
@@ -122,7 +122,7 @@ public class MainClass {
             e.printStackTrace();
         }
         for (Course c:
-                cources) {
+             cources) {
             if(c.getCode().equalsIgnoreCase(courseCode))
                 return true;
         }
@@ -131,7 +131,7 @@ public class MainClass {
 
     public static boolean validateEmail(String email) {
         if (!email.endsWith("@umontreal.ca")) {
-            System.out.println("Erreur: Adresse email invalide. L'adresse email doit finir par '@umontreal.ca'.");
+            System.out.println("Error: Invalid email address. The email address must end with '@umontreal.ca'.");
             return false;
         }
         return true;

@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.Iterator;
 import java.util.List;
 
 public class LoadRequest {
@@ -29,19 +28,20 @@ public class LoadRequest {
             // Read response from server
             List<Course> response = (List<Course>) objectInputStream.readObject();
             int i=1;
-            for(Iterator var9 = response.iterator(); var9.hasNext(); ++i) {
-                Course c = (Course)var9.next();
-                System.out.println("" + i + " .\t" + c.getCode() + "\t" + c.getName());
+            for(Course c: response){
+                System.out.println(i+" .\t"+c.getCode()+"\t"+c.getName());
+                i++;
             }
-
+            // Close streams and socket
             objectOutputStream.close();
             objectInputStream.close();
             socket.close();
-        } catch (ClassNotFoundException | IOException var11) {
-            var11.printStackTrace();
-        }
 
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
+
     public static void loadCoursesData(String fall) throws IOException, ClassNotFoundException {
         String host="localhost";
         int port=1337;
