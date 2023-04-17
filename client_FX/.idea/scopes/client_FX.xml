@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="client_FX" pattern="gitignore||src:controller.Controller||src:server.models.Course||src:server.models.RegistrationForm||src:view.AppLauncher||src:view.MainScreen||src:server.models.*" />
+</component>
