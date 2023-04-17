@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"view","l":"AppLauncher"},{"p":"controller","l":"Controller"},{"p":"server.models","l":"Course"},{"p":"view","l":"MainScreen"},{"p":"server.models","l":"RegistrationForm"}];updateSearchResults();

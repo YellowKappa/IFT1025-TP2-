@@ -7,32 +7,45 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.List;
 
+/**
+ * La classe LoadRequest permet de lancer une requête de chargement des cours depuis le serveur.
+ */
 public class LoadRequest {
+    /**
+     * Constructeur vide de la classe.
+     */
     public LoadRequest() {
     }
+
+    /**
+     * Cette méthode permet de lancer une requête de chargement des cours depuis le serveur.
+     * @param host L'hôte du serveur.
+     * @param port Le port du serveur.
+     * @param command La commande à envoyer au serveur.
+     */
     public void runLoadReqeust(String host,int port,String command){
         try {
-            // Connect to server
+            // Se connecter au serveur
             Socket socket = new Socket(host,port);
 
-            // Create output stream to send data to server
+            // Créer un flux de sortie pour envoyer des données au serveur
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
 
-            // Send command to server
+            // Envoyer la commande au serveur
 
             objectOutputStream.writeObject(command);
 
-            // Create input stream to receive data from server
+            // Créer un flux d'entrée pour recevoir les données du serveur
             ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
 
-            // Read response from server
+            // Lire la réponse du serveur
             List<Course> response = (List<Course>) objectInputStream.readObject();
             int i=1;
             for(Course c: response){
                 System.out.println(i+" .\t"+c.getCode()+"\t"+c.getName());
                 i++;
             }
-            // Close streams and socket
+            // Fermer les flux et le socket
             objectOutputStream.close();
             objectInputStream.close();
             socket.close();
@@ -42,39 +55,39 @@ public class LoadRequest {
         }
     }
 
-    public static void loadCoursesData(String fall) throws IOException, ClassNotFoundException {
+    /**
+     * Cette méthode permet de charger les données des cours à partir du serveur.
+     * @param session La session pour laquelle charger les cours.
+     * @throws IOException Si une erreur survient lors de la lecture ou de l'écriture des données.
+     * @throws ClassNotFoundException Si une classe n'a pas été trouvée lors de la désérialisation.
+     */
+    public static void loadCoursesData(String session) throws IOException, ClassNotFoundException {
         String host="localhost";
         int port=1337;
         String LOAD_COMMAND = "CHARGER";
         String command = LOAD_COMMAND;
-        command+=" "+fall;
-        // Connect to server
+        command+=" "+session;
+        // Se connecter au serveur
         Socket socket = new Socket(host,port);
 
-        // Create output stream to send data to server
+        // Créer un flux de sortie pour envoyer des données au serveur
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
 
-        // Send command to server
-
+        // Envoyer la commande au serveur
         objectOutputStream.writeObject(command);
 
-        // Create input stream to receive data from server
+        // Créer un flux d'entrée pour recevoir les données du serveur
         ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
 
-        // Read response from server
+        // Lire la réponse du serveur
         List<Course> response = (List<Course>) objectInputStream.readObject();
         MainClass.cources=response;
-        // Close streams and socket
+
+        // Fermer les flux et la socket
         objectOutputStream.close();
         objectInputStream.close();
         socket.close();
 
     }
-    public static void main1(String [] args){
-        String REGISTER_COMMAND = "INSCRIRE";
-        String LOAD_COMMAND = "CHARGER";
-        String command = LOAD_COMMAND;
-        command+=" "+"Automne";
-        new LoadRequest().runLoadReqeust("localhost", 1337,command);
-    }
+
 }

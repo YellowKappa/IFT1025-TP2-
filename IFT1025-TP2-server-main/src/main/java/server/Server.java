@@ -189,11 +189,10 @@ public class Server {
             
             // Si l'étudiant n'est pas inscrit, ajouter l'inscription au fichier d'inscriptions
             BufferedWriter writer = new BufferedWriter(new FileWriter("data/inscription.txt", true));
-            String[] registration = new String[]{
-                    course.getSession(), course.getCode(), registrationForm.getMatricule(),
-                    registrationForm.getPrenom(), registrationForm.getNom(), registrationForm.getEmail()
-            };
-            writer.write(String.join("\t", registration) + "\n");
+            String registration = course.getSession() + "\t" + course.getCode() + "\t" +
+                    registrationForm.getMatricule() + "\t" + registrationForm.getPrenom() + "\t" +
+                    registrationForm.getNom() + "\t" + registrationForm.getEmail() + "\n";
+            writer.write(registration);
             writer.close();
             objectOutputStream.writeObject("\nFélicitations! Inscription réussie de " + registrationForm.getPrenom() +
                     " au cours " + registrationForm.getCourse().getCode() + ".");
